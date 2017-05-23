@@ -191,6 +191,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Entities\Item.cs" />
+    <Compile Include="Entities\ItemType.cs" />
+    <Compile Include="Entities\Part.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -198,6 +201,10 @@
     <Compile Include="Migrations\201705231151366_AddSectionTable.cs" />
     <Compile Include="Migrations\201705231151366_AddSectionTable.Designer.cs">
       <DependentUpon>201705231151366_AddSectionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705231210350_AddPartItemItemTypesTables.cs" />
+    <Compile Include="Migrations\201705231210350_AddPartItemItemTypesTables.Designer.cs">
+      <DependentUpon>201705231210350_AddPartItemItemTypesTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -285,6 +292,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705231151366_AddSectionTable.resx">
       <DependentUpon>201705231151366_AddSectionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705231210350_AddPartItemItemTypesTables.resx">
+      <DependentUpon>201705231210350_AddPartItemItemTypesTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

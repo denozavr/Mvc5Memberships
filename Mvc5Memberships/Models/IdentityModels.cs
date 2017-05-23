@@ -27,6 +27,9 @@ namespace Mvc5Memberships.Models
         }
 
         public DbSet<Section> Sections { get; set; }
+        public DbSet<Part> Parts { get; set; }
+        public DbSet<ItemType> ItemTypes { get; set; }
+        public DbSet<Item> Items { get; set; }
 
         public static ApplicationDbContext Create()
         {
