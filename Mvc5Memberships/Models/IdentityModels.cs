@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Mvc5Memberships.Entities;
 
 namespace Mvc5Memberships.Models
 {
@@ -24,6 +25,8 @@ namespace Mvc5Memberships.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+
+        public DbSet<Section> Sections { get; set; }
 
         public static ApplicationDbContext Create()
         {
