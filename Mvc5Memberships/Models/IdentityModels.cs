@@ -30,6 +30,9 @@ namespace Mvc5Memberships.Models
         public DbSet<Part> Parts { get; set; }
         public DbSet<ItemType> ItemTypes { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductType> ProductTypes { get; set; }
+        public DbSet<ProductLinkText> ProductLinkTexts { get; set; }
 
         public static ApplicationDbContext Create()
         {
