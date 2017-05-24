@@ -200,6 +200,8 @@
     <Compile Include="Entities\ProductType.cs" />
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\Subscription.cs" />
+    <Compile Include="Entities\SubscriptionProduct.cs" />
+    <Compile Include="Entities\UserSubscription.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -218,6 +220,10 @@
     <Compile Include="Migrations\201705241134122_ProductItemAndSubscriptionTables.cs" />
     <Compile Include="Migrations\201705241134122_ProductItemAndSubscriptionTables.Designer.cs">
       <DependentUpon>201705241134122_ProductItemAndSubscriptionTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241147095_AddUserSubscriptionAndSubsProductTables.cs" />
+    <Compile Include="Migrations\201705241147095_AddUserSubscriptionAndSubsProductTables.Designer.cs">
+      <DependentUpon>201705241147095_AddUserSubscriptionAndSubsProductTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -314,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705241134122_ProductItemAndSubscriptionTables.resx">
       <DependentUpon>201705241134122_ProductItemAndSubscriptionTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241147095_AddUserSubscriptionAndSubsProductTables.resx">
+      <DependentUpon>201705241147095_AddUserSubscriptionAndSubsProductTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

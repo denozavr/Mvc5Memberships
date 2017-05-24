@@ -37,6 +37,9 @@ namespace Mvc5Memberships.Models
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<ProductItem> ProductItems { get; set; }
 
+        public DbSet<SubscriptionProduct> SubscriptionProducts { get; set; }
+        public DbSet<UserSubscription> UserSubscriptions { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
