@@ -225,6 +225,10 @@
     <Compile Include="Migrations\201705241147095_AddUserSubscriptionAndSubsProductTables.Designer.cs">
       <DependentUpon>201705241147095_AddUserSubscriptionAndSubsProductTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705241150214_AddColumnsToAspUsersTable.cs" />
+    <Compile Include="Migrations\201705241150214_AddColumnsToAspUsersTable.Designer.cs">
+      <DependentUpon>201705241150214_AddColumnsToAspUsersTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -323,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705241147095_AddUserSubscriptionAndSubsProductTables.resx">
       <DependentUpon>201705241147095_AddUserSubscriptionAndSubsProductTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241150214_AddColumnsToAspUsersTable.resx">
+      <DependentUpon>201705241150214_AddColumnsToAspUsersTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
