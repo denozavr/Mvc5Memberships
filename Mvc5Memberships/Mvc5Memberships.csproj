@@ -195,9 +195,11 @@
     <Compile Include="Entities\ItemType.cs" />
     <Compile Include="Entities\Part.cs" />
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductItem.cs" />
     <Compile Include="Entities\ProductLinkText.cs" />
     <Compile Include="Entities\ProductType.cs" />
     <Compile Include="Entities\Section.cs" />
+    <Compile Include="Entities\Subscription.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,6 +214,10 @@
     <Compile Include="Migrations\201705231223420_AddProductAndTypeAndLinkTextTables.cs" />
     <Compile Include="Migrations\201705231223420_AddProductAndTypeAndLinkTextTables.Designer.cs">
       <DependentUpon>201705231223420_AddProductAndTypeAndLinkTextTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705241134122_ProductItemAndSubscriptionTables.cs" />
+    <Compile Include="Migrations\201705241134122_ProductItemAndSubscriptionTables.Designer.cs">
+      <DependentUpon>201705241134122_ProductItemAndSubscriptionTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -305,6 +311,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705231223420_AddProductAndTypeAndLinkTextTables.resx">
       <DependentUpon>201705231223420_AddProductAndTypeAndLinkTextTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705241134122_ProductItemAndSubscriptionTables.resx">
+      <DependentUpon>201705241134122_ProductItemAndSubscriptionTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
