@@ -1,4 +1,4 @@
-﻿@model Mvc5Memberships.Entities.Section
+﻿@model Mvc5Memberships.Entities.ItemType
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Part</h4>
+        <h4>Item Type</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
