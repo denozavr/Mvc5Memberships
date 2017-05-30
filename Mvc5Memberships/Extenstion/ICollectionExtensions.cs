@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships.Extenstion
 {
@@ -28,5 +29,14 @@ namespace Mvc5Memberships.Extenstion
             //        Selected = item.GetPropValue("Id").Equals(selected.ToString())
             //    };
         }
+
+        public static string ShowItemType(this int id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            var tit = db.ItemTypes.FirstOrDefault(x => x.Id == id)?.Title ?? "NULL";
+
+            return tit;
+        }
+
     }
 }
