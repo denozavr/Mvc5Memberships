@@ -80,6 +80,11 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            item.ItemTypes = await db.ItemTypes.ToListAsync();
+            item.Sections = await db.Sections.ToListAsync();
+            item.Parts = await db.Parts.ToListAsync();
+
+
             return View(item);
         }
 
