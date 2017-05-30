@@ -1,4 +1,5 @@
-﻿@model Mvc5Memberships.Entities.Item
+﻿@using Mvc5Memberships.Extenstion
+@model Mvc5Memberships.Entities.Item
 
 @{
     ViewBag.Title = "Create";
@@ -73,7 +74,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ItemTypes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ItemTypeId, new { htmlAttributes = new { @class = "form-control" } })
+               @Html.DropDownListFor(model => model.ItemTypeId, Model.ItemTypes.ToSelectListItem(Model.ItemTypeId), "Select item type:", new { @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.ItemTypeId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -81,7 +82,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Sections, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.SectionId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.SectionId,Model.Sections.ToSelectListItem(Model.SectionId), "Select section:" , new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SectionId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -89,7 +90,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Parts, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PartId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.PartId,Model.Parts.ToSelectListItem(Model.PartId), "Select Part:" , new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.PartId, "", new { @class = "text-danger" })
             </div>
         </div>
