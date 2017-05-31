@@ -30,8 +30,8 @@ namespace Mvc5Memberships.Areas.Admin.Models
             get
             {
                 return ProductTypes == null || ProductTypes.Count.Equals(0) ?
-                    String.Empty : ProductTypes.First(
-                        pt => pt.Id.Equals(ProductTypeId)).Title;
+                    string.Empty : ProductTypes.FirstOrDefault(
+                        pt => pt.Id.Equals(ProductTypeId))?.Title;
             }
         }
         public string ProductLinkText
@@ -39,8 +39,8 @@ namespace Mvc5Memberships.Areas.Admin.Models
             get
             {
                 return ProductLinkTexts == null || ProductLinkTexts.Count.Equals(0) ?
-                    String.Empty : ProductLinkTexts.First(
-                        pt => pt.Id.Equals(ProductLinkTextId)).Title;
+                    string.Empty : ProductLinkTexts.FirstOrDefault(
+                        pt => pt.Id.Equals(ProductLinkTextId))?.Title;
             }
         }
 

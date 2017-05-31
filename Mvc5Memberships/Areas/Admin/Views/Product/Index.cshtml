@@ -19,13 +19,10 @@
             @Html.DisplayNameFor(model => model.Description)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ImageUrl)
+            @Html.DisplayNameFor(model => model.ProductLinkTexts)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductLinkTextId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductTypeId)
+            @Html.DisplayNameFor(model => model.ProductTypes)
         </th>
         <th></th>
     </tr>
@@ -39,13 +36,10 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
+            @Html.DisplayFor(modelItem => item.ProductLinkText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductLinkTextId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductTypeId)
+            @Html.DisplayFor(modelItem => item.ProductType)
         </td>
         @*<td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
