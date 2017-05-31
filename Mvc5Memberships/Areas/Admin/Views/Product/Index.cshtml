@@ -1,5 +1,5 @@
 ﻿@using Mvc5Memberships.Areas.Admin.Models
-@model IEnumerable<Mvc5Memberships.Entities.Product>
+@model IEnumerable<ProductModel>
 
 @{
     ViewBag.Title = "Index";
@@ -10,8 +10,8 @@
 <p>
     @Html.Partial("_CreateNewButtonPartial")
 </p>
-<table class="table">
-    <tr>
+<table class="table table-striped">
+    <tr class="success">
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
@@ -52,7 +52,7 @@
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.Id })
         </td>*@
-        @Html.Partial("_SmallButtonPartial", new SmallButtonModel(){Id = item.Id})
+        @Html.Partial("_TableButtonsPartial", new SmallButtonModel { Id = item.Id })
     </tr>
 }
 

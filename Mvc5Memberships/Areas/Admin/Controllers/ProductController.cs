@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Mvc5Memberships.Entities;
+using Mvc5Memberships.Extenstion;
 using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships.Areas.Admin.Controllers
@@ -19,7 +20,10 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         // GET: Admin/Product
         public async Task<ActionResult> Index()
         {
-            return View(await db.Products.ToListAsync());
+            var products = await db.Products.ToListAsync();
+            var model = await products.Convert(db);
+
+            return View(model);
         }
 
         // GET: Admin/Product/Details/5
