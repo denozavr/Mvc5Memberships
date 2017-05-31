@@ -1,4 +1,5 @@
-﻿@model Mvc5Memberships.Entities.Product
+﻿@using Mvc5Memberships.Extenstion
+@model Mvc5Memberships.Areas.Admin.Models.ProductModel
 
 @{
     ViewBag.Title = "Create";
@@ -39,17 +40,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductLinkTextId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProductLinkTexts, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductLinkTextId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.ProductLinkTextId,
+                 Model.ProductLinkTexts.ToSelectListItem(Model.ProductLinkTextId), "Select product link text:" ,new { @class = "form-control" } )
                 @Html.ValidationMessageFor(model => model.ProductLinkTextId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ProductTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.ProductTypes, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ProductTypeId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.ProductTypeId, Model.ProductTypes.ToSelectListItem(Model.ProductTypeId), "Select product type:" ,new {  @class = "form-control"  })
                 @Html.ValidationMessageFor(model => model.ProductTypeId, "", new { @class = "text-danger" })
             </div>
         </div>

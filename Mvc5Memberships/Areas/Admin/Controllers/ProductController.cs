@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Mvc5Memberships.Areas.Admin.Models;
 using Mvc5Memberships.Entities;
 using Mvc5Memberships.Extenstion;
 using Mvc5Memberships.Models;
@@ -42,9 +43,15 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         }
 
         // GET: Admin/Product/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var model = new ProductModel
+            {
+                ProductLinkTexts = await db.ProductLinkTexts.ToListAsync(),
+                ProductTypes = await db.ProductTypes.ToListAsync()
+            };
+
+            return View(model);
         }
 
         // POST: Admin/Product/Create
@@ -60,8 +67,13 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            var model = new ProductModel
+            {
+                ProductLinkTexts = await db.ProductLinkTexts.ToListAsync(),
+                ProductTypes = await db.ProductTypes.ToListAsync()
+            };
 
-            return View(product);
+            return View(model);
         }
 
         // GET: Admin/Product/Edit/5
