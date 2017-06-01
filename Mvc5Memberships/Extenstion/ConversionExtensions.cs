@@ -34,5 +34,33 @@ namespace Mvc5Memberships.Extenstion
                 ProductTypes = types
             });
         }
+
+
+        public static async Task<ProductModel> Convert(this Product product, ApplicationDbContext db)
+        {
+            if (product == null)
+                return new ProductModel();
+
+            var text = await db.ProductLinkTexts.FirstOrDefaultAsync(x => x.Id == product.ProductLinkTextId);
+            var type = await db.ProductTypes.FirstOrDefaultAsync(x => x.Id == product.ProductTypeId);
+
+            var model = new ProductModel()
+            {
+                Id = product.Id,
+                Title = product.Title,
+                Description = product.Description,
+                ImageUrl = product.ImageUrl,
+                ProductLinkTextId = product.ProductLinkTextId,
+                ProductTypeId = product.ProductTypeId,
+                ProductLinkTexts = new List<ProductLinkText>(),
+                ProductTypes = new List<ProductType>()
+            };
+
+
+            model.ProductLinkTexts.Add(text);
+            model.ProductTypes.Add(type);
+
+            return model;
+        }
     }
 }

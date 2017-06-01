@@ -1,4 +1,4 @@
-﻿@model Mvc5Memberships.Entities.Product
+﻿@model Mvc5Memberships.Areas.Admin.Models.ProductModel
 
 @{
     ViewBag.Title = "Details";
@@ -35,19 +35,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductLinkTextId)
+            @Html.DisplayNameFor(model => model.ProductLinkTexts)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductLinkTextId)
+            @Html.DisplayFor(model => model.ProductLinkText)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ProductTypeId)
+            @Html.DisplayNameFor(model => model.ProductTypes)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ProductTypeId)
+            @Html.DisplayFor(model => model.ProductType)
         </dd>
 
     </dl>
