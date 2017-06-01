@@ -90,7 +90,9 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            var prods = new List<Product> {product};
+            var model = await prods.Convert(db);
+            return View(model.First());
         }
 
         // POST: Admin/Product/Edit/5
@@ -106,7 +108,8 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            var model = await product.Convert(db);
+            return View(model);
         }
 
         // GET: Admin/Product/Delete/5
