@@ -94,7 +94,35 @@ namespace Mvc5Memberships.Extenstion
             }
 
 
-        } 
+        }
+
+
+        public static async Task<ProductItemModel> Convert(
+            this ProductItem productItem, ApplicationDbContext db)
+        {
+            if (productItem == null)
+                return new ProductItemModel();
+
+            try
+            {
+                var model = new ProductItemModel()
+                {
+                    ItemId = productItem.ItemId,
+                    ProductId = productItem.ProductId,
+                    Items = await db.Items.ToListAsync(),
+                    Products = await db.Products.ToListAsync()
+                };
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return new ProductItemModel();
+            }
+
+
+        }
         #endregion
 
     }

@@ -74,7 +74,7 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            return await ReturnProductItemModelToView();
+            return View(await productItem.Convert(db));
         }
         private async Task<ProductItem> GetProductItem(int? itemId, int? productId)
         {
