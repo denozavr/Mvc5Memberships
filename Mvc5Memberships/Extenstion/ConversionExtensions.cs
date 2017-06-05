@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,8 +13,9 @@ namespace Mvc5Memberships.Extenstion
 {
     public static class ConversionExtensions
     {
+        #region Product
         public static async Task<IEnumerable<ProductModel>> Convert(
-            this IEnumerable<Product> products, ApplicationDbContext db)
+    this IEnumerable<Product> products, ApplicationDbContext db)
         {
             var prods = products as IList<Product> ?? products.ToList();
             if (!prods.Any())
@@ -62,5 +64,38 @@ namespace Mvc5Memberships.Extenstion
 
             return model;
         }
+        #endregion
+
+
+
+        #region ProductItem
+        public static async Task<IEnumerable<ProductItemModel>> Convert(
+          this IQueryable<ProductItem> productItems, ApplicationDbContext db)
+        {
+            if (!productItems.Any())
+                return new List<ProductItemModel>();
+
+            try
+            {
+                var model = await productItems.Select(x => new ProductItemModel()
+                {
+                    ItemId = x.ItemId,
+                    ProductId = x.ProductId,
+                    ItemTitle = db.Items.FirstOrDefault(i => i.Id == x.ItemId).Title,
+                    ProductTitle = db.Products.FirstOrDefault(p => p.Id == x.ProductId).Title
+                }).ToListAsync();
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return new List<ProductItemModel>();
+            }
+
+
+        } 
+        #endregion
+
     }
 }

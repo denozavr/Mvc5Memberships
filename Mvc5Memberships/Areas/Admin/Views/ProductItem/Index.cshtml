@@ -26,7 +26,7 @@
             @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
             @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
         </td>*@
-        <td>@Html.Partial("_TableButtonsPartial", new SmallButtonModel(){ItemId = item.ItemId, ProductId = item.ProductId})</td>
+        @Html.Partial("_TableButtonsPartial", new SmallButtonModel(){ItemId = item.ItemId, ProductId = item.ProductId})
     </tr>
 }
 
