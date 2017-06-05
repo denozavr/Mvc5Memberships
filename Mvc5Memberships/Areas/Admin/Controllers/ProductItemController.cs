@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -42,13 +43,7 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         // GET: Admin/ProductItem/Create
         public async Task<ActionResult> Create()
         {
-            var model = new ProductItemModel
-            {
-                Products = await db.Products.ToListAsync(),
-                Items = await db.Items.ToListAsync()
-            };
-
-            return View(model);
+            return await ReturnProductItemModelToView();
         }
 
         // POST: Admin/ProductItem/Create
@@ -64,6 +59,45 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            return await ReturnProductItemModelToView();
+        }
+
+        // GET: Admin/ProductItem/Edit/5
+        public async Task<ActionResult> Edit(int? itemId, int? productId)
+        {
+            if (itemId == null || productId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            ProductItem productItem = await GetProductItem(itemId, productId);
+            if (productItem == null)
+            {
+                return HttpNotFound();
+            }
+            return await ReturnProductItemModelToView();
+        }
+        private async Task<ProductItem> GetProductItem(int? itemId, int? productId)
+        {
+            try
+            {
+                int itId = 0, prodId = 0;
+                int.TryParse(itemId.ToString(), out itId);
+                int.TryParse(productId.ToString(), out prodId);
+
+                var prodItem = await db.ProductItems.FirstOrDefaultAsync(pi =>
+                    pi.ProductId == prodId && pi.ItemId == itId);
+
+                return prodItem;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return null;
+            }
+        }
+
+        private async Task<ActionResult> ReturnProductItemModelToView()
+        {
             var model = new ProductItemModel
             {
                 Products = await db.Products.ToListAsync(),
@@ -71,21 +105,6 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             };
 
             return View(model);
-        }
-
-        // GET: Admin/ProductItem/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProductItem productItem = await db.ProductItems.FindAsync(id);
-            if (productItem == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productItem);
         }
 
         // POST: Admin/ProductItem/Edit/5
@@ -101,7 +120,7 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(productItem);
+            return await ReturnProductItemModelToView();
         }
 
         // GET: Admin/ProductItem/Delete/5
