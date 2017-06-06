@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Web;
 using Mvc5Memberships.Areas.Admin.Models;
 using Mvc5Memberships.Entities;
@@ -122,6 +123,49 @@ namespace Mvc5Memberships.Extenstion
             }
 
 
+        }
+
+        public static async Task<bool> CanChange(this ProductItem productItem, ApplicationDbContext db)
+        {
+            var oldPi = await db.ProductItems.CountAsync(pi =>
+                pi.ProductId == productItem.OldProductId && pi.ItemId == productItem.OldItemId);
+
+            var newPi = await db.ProductItems.CountAsync(pi =>
+                pi.ProductId == productItem.ProductId && pi.ItemId == productItem.ItemId);
+
+            return oldPi == 1 && newPi == 0;
+        }
+
+        public static async Task Change(
+            this ProductItem productItem, ApplicationDbContext db)
+        {
+            var oldProductItem = await db.ProductItems.FirstOrDefaultAsync(pi =>
+                pi.ProductId == productItem.OldProductId && pi.ItemId == productItem.OldItemId);
+
+            var newProductItem = await db.ProductItems.FirstOrDefaultAsync(pi =>
+                pi.ProductId == productItem.ProductId && pi.ItemId == productItem.ItemId);
+
+            if (oldProductItem != null && newProductItem == null)
+            {
+                newProductItem = new ProductItem
+                {
+                    ItemId = productItem.ItemId,
+                    ProductId = productItem.ProductId
+                };
+
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    try
+                    {
+                        db.ProductItems.Remove(oldProductItem);
+                        db.ProductItems.Add(newProductItem);
+
+                        await db.SaveChangesAsync();
+                        transaction.Complete();
+                    }
+                    catch { transaction.Dispose(); }
+                }
+            }
         }
         #endregion
 
