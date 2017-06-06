@@ -199,6 +199,7 @@
     <Compile Include="Areas\Admin\Controllers\ProductTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\SectionController.cs" />
     <Compile Include="Areas\Admin\Controllers\SubscriptionController.cs" />
+    <Compile Include="Areas\Admin\Models\EditButtonModel.cs" />
     <Compile Include="Areas\Admin\Models\ProductItemModel.cs" />
     <Compile Include="Areas\Admin\Models\ProductModel.cs" />
     <Compile Include="Areas\Admin\Models\SmallButtonModel.cs" />
