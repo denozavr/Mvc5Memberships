@@ -1,4 +1,5 @@
-﻿@model Mvc5Memberships.Entities.ProductItem
+﻿@using Mvc5Memberships.Areas.Admin.Models
+@model Mvc5Memberships.Areas.Admin.Models.ProductItemModel
 
 @{
     ViewBag.Title = "Details";
@@ -10,10 +11,14 @@
     <h4>ProductItem</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.ItemTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.ProductTitle)</dd>
+        <dt>@Html.DisplayNameFor(model => model.ProductTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.ProductTitle)</dd>
     </dl>
 </div>
 <p>
     @*@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |*@
-    @Html.Partial("_EditButtonPartial", 0)
+    @Html.Partial("_EditButtonDetailsPartial", new EditButtonModel(){ItemId = Model.ItemId, ProductId = Model.ProductId})
     @Html.Partial("_BackToListButtonPartial")
 </p>
