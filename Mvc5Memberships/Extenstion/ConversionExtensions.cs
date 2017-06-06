@@ -99,7 +99,7 @@ namespace Mvc5Memberships.Extenstion
 
 
         public static async Task<ProductItemModel> Convert(
-            this ProductItem productItem, ApplicationDbContext db)
+            this ProductItem productItem, ApplicationDbContext db, bool addListData = true)
         {
             if (productItem == null)
                 return new ProductItemModel();
@@ -110,8 +110,10 @@ namespace Mvc5Memberships.Extenstion
                 {
                     ItemId = productItem.ItemId,
                     ProductId = productItem.ProductId,
-                    Items = await db.Items.ToListAsync(),
-                    Products = await db.Products.ToListAsync()
+                    Items = addListData ? await db.Items.ToListAsync() : null,
+                    Products = addListData ? await db.Products.ToListAsync() : null,
+                    ItemTitle = (await db.Items.FirstOrDefaultAsync(i=>i.Id == productItem.ItemId)).Title,
+                    ProductTitle = (await db.Products.FirstOrDefaultAsync(p=> p.Id == productItem.ProductId)).Title
                 };
 
                 return model;
