@@ -1,4 +1,4 @@
-﻿@model Mvc5Memberships.Entities.ProductItem
+﻿@model Mvc5Memberships.Areas.Admin.Models.ProductItemModel
 
 @{
     ViewBag.Title = "Delete";
@@ -11,6 +11,10 @@
     <h4>ProductItem</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.ProductTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.ProductTitle)</dd>
+        <dt>@Html.DisplayNameFor(model => model.ItemTitle)</dt>
+        <dd>@Html.DisplayFor(model => model.ItemTitle)</dd>
     </dl>
 
     @using (Html.BeginForm()) {
