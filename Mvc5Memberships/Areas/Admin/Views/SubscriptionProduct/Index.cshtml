@@ -1,0 +1,33 @@
+﻿@using Mvc5Memberships.Areas.Admin.Models
+@model IEnumerable<SubscriptionProductModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.Partial("_CreateNewButtonPartial")
+</p>
+<table class="table table-striped">
+    <tr class="success">
+        <th>@Html.DisplayNameFor(m => m.ProductTitle)</th>
+        <th>@Html.DisplayNameFor(m => m.SubscriptionTitle)</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>@Html.DisplayFor(m => item.ProductTitle)</td>
+        <td>@Html.DisplayFor(m => item.SubscriptionTitle)</td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+            @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+        </td>*@
+        @Html.Partial("_TableButtonsPartial", new SmallButtonModel(){SubscriptionId = item.SubscriptionId, ProductId = item.ProductId})
+    </tr>
+}
+
+</table>
