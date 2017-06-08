@@ -174,7 +174,7 @@ namespace Mvc5Memberships.Extenstion
 
         #region SubscriptionProduct
         public static async Task<IEnumerable<SubscriptionProductModel>> Convert(
-            this IQueryable<SubscriptionProductModel> subProductItems, ApplicationDbContext db)
+            this IQueryable<SubscriptionProduct> subProductItems, ApplicationDbContext db)
         {
             if (!subProductItems.Any())
                 return new List<SubscriptionProductModel>();

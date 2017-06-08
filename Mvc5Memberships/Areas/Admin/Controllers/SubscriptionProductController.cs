@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Mvc5Memberships.Areas.Admin.Models;
 using Mvc5Memberships.Entities;
+using Mvc5Memberships.Extenstion;
 using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships.Areas.Admin.Controllers
@@ -19,9 +21,10 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         // GET: Admin/SubscriptionProduct
         public async Task<ActionResult> Index()
         {
-            return View(await db.SubscriptionProducts.ToListAsync());
+            return View(await db.SubscriptionProducts.Convert(db));
         }
 
+        
         // GET: Admin/SubscriptionProduct/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -116,6 +119,8 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
 
         protected override void Dispose(bool disposing)
         {
