@@ -171,5 +171,108 @@ namespace Mvc5Memberships.Extenstion
         }
         #endregion
 
+
+        #region SubscriptionProduct
+        public static async Task<IEnumerable<SubscriptionProductModel>> Convert(
+            this IQueryable<SubscriptionProductModel> subProductItems, ApplicationDbContext db)
+        {
+            if (!subProductItems.Any())
+                return new List<SubscriptionProductModel>();
+
+            try
+            {
+                var model = await subProductItems.Select(x => new SubscriptionProductModel()
+                {
+                    SubscriptionId = x.SubscriptionId,
+                    ProductId = x.ProductId,
+                    SubscriptionTitle = db.Items.FirstOrDefault(i => i.Id == x.SubscriptionId).Title,
+                    ProductTitle = db.Products.FirstOrDefault(p => p.Id == x.ProductId).Title
+                }).ToListAsync();
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return new List<SubscriptionProductModel>();
+            }
+        }
+
+
+        public static async Task<SubscriptionProductModel> Convert(
+            this SubscriptionProduct subscriptionProduct, ApplicationDbContext db, bool addListData = true)
+        {
+            if (subscriptionProduct == null)
+                return new SubscriptionProductModel();
+
+            try
+            {
+                var model = new SubscriptionProductModel()
+                {
+                    SubscriptionId = subscriptionProduct.SubscriptionId,
+                    ProductId = subscriptionProduct.ProductId,
+                    Subscriptions = addListData ? await db.Subscriptions.ToListAsync() : null,
+                    Products = addListData ? await db.Products.ToListAsync() : null,
+                    SubscriptionTitle = (await db.Items.FirstOrDefaultAsync(i => i.Id == subscriptionProduct.SubscriptionId)).Title,
+                    ProductTitle = (await db.Products.FirstOrDefaultAsync(p => p.Id == subscriptionProduct.ProductId)).Title
+                };
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return new SubscriptionProductModel();
+            }
+
+
+        }
+
+        public static async Task<bool> CanChange(this SubscriptionProduct subscriptionProduct, ApplicationDbContext db)
+        {
+            var oldSp = await db.SubscriptionProducts.CountAsync(pi =>
+                pi.ProductId == subscriptionProduct.OldProductId && pi.SubscriptionId == subscriptionProduct.OldSubscriptionId);
+
+            var newSp = await db.SubscriptionProducts.CountAsync(pi =>
+                pi.ProductId == subscriptionProduct.ProductId && pi.SubscriptionId == subscriptionProduct.SubscriptionId);
+
+            return oldSp == 1 && newSp == 0;
+        }
+
+        public static async Task Change(this SubscriptionProduct subscriptionProduct, ApplicationDbContext db)
+        {
+            var oldSubscriptionProduct = await db.SubscriptionProducts.FirstOrDefaultAsync(pi =>
+                pi.ProductId == subscriptionProduct.OldProductId && pi.SubscriptionId == subscriptionProduct.OldSubscriptionId);
+
+            var newSubscriptionProduct = await db.SubscriptionProducts.FirstOrDefaultAsync(pi =>
+                pi.ProductId == subscriptionProduct.ProductId && pi.SubscriptionId == subscriptionProduct.SubscriptionId);
+
+            if (oldSubscriptionProduct != null && newSubscriptionProduct == null)
+            {
+                newSubscriptionProduct = new SubscriptionProduct
+                {
+                    SubscriptionId = subscriptionProduct.SubscriptionId,
+                    ProductId = subscriptionProduct.ProductId
+                };
+
+                using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                {
+                    try
+                    {
+                        db.SubscriptionProducts.Remove(oldSubscriptionProduct);
+                        db.SubscriptionProducts.Add(newSubscriptionProduct);
+
+                        await db.SaveChangesAsync();
+                        transaction.Complete();
+                    }
+                    catch { transaction.Dispose(); }
+                }
+            }
+        }
+
+
+        #endregion
+
+
     }
 }
