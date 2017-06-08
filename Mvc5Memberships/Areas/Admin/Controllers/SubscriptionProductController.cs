@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
@@ -64,18 +65,18 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         }
 
         // GET: Admin/SubscriptionProduct/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public async Task<ActionResult> Edit(int? productId, int? subscriptionId)
         {
-            if (id == null)
+            if (productId == null || subscriptionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubscriptionProduct subscriptionProduct = await db.SubscriptionProducts.FindAsync(id);
+            SubscriptionProduct subscriptionProduct = await GetSubscriptionProduct(productId,subscriptionId);
             if (subscriptionProduct == null)
             {
                 return HttpNotFound();
             }
-            return View(subscriptionProduct);
+            return View(await subscriptionProduct.Convert(db));
         }
 
         // POST: Admin/SubscriptionProduct/Edit/5
@@ -83,15 +84,18 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "ProductId,SubscriptionId")] SubscriptionProduct subscriptionProduct)
+        public async Task<ActionResult> Edit([Bind(Include = "ProductId,SubscriptionId,OldProductId,OldSubscriptionId")] SubscriptionProduct subscriptionProduct)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(subscriptionProduct).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                var canChange = await subscriptionProduct.CanChange(db);
+                if (canChange)
+                {
+                    await subscriptionProduct.Change(db);
+                }
                 return RedirectToAction("Index");
             }
-            return View(subscriptionProduct);
+            return await ReturnSubscriptionProductModelToView();
         }
 
         // GET: Admin/SubscriptionProduct/Delete/5
@@ -129,6 +133,26 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             };
 
             return View(model);
+        }
+
+        public async Task<SubscriptionProduct> GetSubscriptionProduct(int? prodId, int? subscriptionId)
+        {
+            try
+            {
+                int pId = 0, sId = 0;
+                int.TryParse(prodId.ToString(), out pId);
+                int.TryParse(subscriptionId.ToString(), out sId);
+
+                var subProdItem = await db.SubscriptionProducts.FirstOrDefaultAsync(
+                    sp => sp.ProductId == pId && sp.SubscriptionId == sId);
+
+                return subProdItem;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return new SubscriptionProduct();
+            }
         }
 
         protected override void Dispose(bool disposing)
