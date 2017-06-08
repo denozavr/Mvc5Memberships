@@ -185,7 +185,7 @@ namespace Mvc5Memberships.Extenstion
                 {
                     SubscriptionId = x.SubscriptionId,
                     ProductId = x.ProductId,
-                    SubscriptionTitle = db.Items.FirstOrDefault(i => i.Id == x.SubscriptionId).Title,
+                    SubscriptionTitle = db.Subscriptions.FirstOrDefault(i => i.Id == x.SubscriptionId).Title,
                     ProductTitle = db.Products.FirstOrDefault(p => p.Id == x.ProductId).Title
                 }).ToListAsync();
 
@@ -213,7 +213,7 @@ namespace Mvc5Memberships.Extenstion
                     ProductId = subscriptionProduct.ProductId,
                     Subscriptions = addListData ? await db.Subscriptions.ToListAsync() : null,
                     Products = addListData ? await db.Products.ToListAsync() : null,
-                    SubscriptionTitle = (await db.Items.FirstOrDefaultAsync(i => i.Id == subscriptionProduct.SubscriptionId)).Title,
+                    SubscriptionTitle = (await db.Subscriptions.FirstOrDefaultAsync(i => i.Id == subscriptionProduct.SubscriptionId)).Title,
                     ProductTitle = (await db.Products.FirstOrDefaultAsync(p => p.Id == subscriptionProduct.ProductId)).Title
                 };
 

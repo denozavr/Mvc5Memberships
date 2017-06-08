@@ -41,9 +41,9 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         }
 
         // GET: Admin/SubscriptionProduct/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            return await ReturnSubscriptionProductModelToView();
         }
 
         // POST: Admin/SubscriptionProduct/Create
@@ -60,7 +60,7 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(subscriptionProduct);
+            return await ReturnSubscriptionProductModelToView();
         }
 
         // GET: Admin/SubscriptionProduct/Edit/5
@@ -120,7 +120,16 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        private async Task<ActionResult> ReturnSubscriptionProductModelToView()
+        {
+            var model = new SubscriptionProductModel()
+            {
+                Products = await db.Products.ToListAsync(),
+                Subscriptions = await db.Subscriptions.ToListAsync()
+            };
 
+            return View(model);
+        }
 
         protected override void Dispose(bool disposing)
         {
