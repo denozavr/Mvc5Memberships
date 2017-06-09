@@ -27,18 +27,18 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
 
         
         // GET: Admin/SubscriptionProduct/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Details(int? productId, int? subscriptionId)
         {
-            if (id == null)
+            if (productId == null || subscriptionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubscriptionProduct subscriptionProduct = await db.SubscriptionProducts.FindAsync(id);
+            SubscriptionProduct subscriptionProduct = await GetSubscriptionProduct(productId,subscriptionId);
             if (subscriptionProduct == null)
             {
                 return HttpNotFound();
             }
-            return View(subscriptionProduct);
+            return View(await subscriptionProduct.Convert(db,false));
         }
 
         // GET: Admin/SubscriptionProduct/Create
