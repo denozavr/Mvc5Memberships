@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 using Mvc5Memberships.Entities;
@@ -125,8 +127,24 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Item item = await db.Items.FindAsync(id);
-            db.Items.Remove(item);
-            await db.SaveChangesAsync();
+            using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                try
+                {
+                    var prodItem = db.ProductItems.Where(pi => pi.ItemId == id);
+                    db.ProductItems.RemoveRange(prodItem);
+                    db.Items.Remove(item);
+
+                    await db.SaveChangesAsync();
+                    transaction.Complete();
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    transaction.Dispose();
+                }
+            }
+
             return RedirectToAction("Index");
         }
 
