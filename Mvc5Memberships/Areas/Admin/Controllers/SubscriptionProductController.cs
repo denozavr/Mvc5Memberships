@@ -99,26 +99,26 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         }
 
         // GET: Admin/SubscriptionProduct/Delete/5
-        public async Task<ActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int? productId, int? subscriptionId)
         {
-            if (id == null)
+            if (productId == null || subscriptionId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            SubscriptionProduct subscriptionProduct = await db.SubscriptionProducts.FindAsync(id);
+            SubscriptionProduct subscriptionProduct = await GetSubscriptionProduct(productId,subscriptionId);
             if (subscriptionProduct == null)
             {
                 return HttpNotFound();
             }
-            return View(subscriptionProduct);
+            return View(await subscriptionProduct.Convert(db,false));
         }
 
         // POST: Admin/SubscriptionProduct/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int productId, int subscriptionId)
         {
-            SubscriptionProduct subscriptionProduct = await db.SubscriptionProducts.FindAsync(id);
+            SubscriptionProduct subscriptionProduct = await GetSubscriptionProduct(productId,subscriptionId);
             db.SubscriptionProducts.Remove(subscriptionProduct);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
