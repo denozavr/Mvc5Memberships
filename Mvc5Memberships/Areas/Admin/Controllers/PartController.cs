@@ -112,8 +112,15 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             Part part = await db.Parts.FindAsync(id);
-            db.Parts.Remove(part);
-            await db.SaveChangesAsync();
+            var isUnused = await db.Items.CountAsync(i => i.PartId == id) == 0;
+
+            if (isUnused)
+            {
+                db.Parts.Remove(part);
+                await db.SaveChangesAsync();
+            }
+
+          
             return RedirectToAction("Index");
         }
 

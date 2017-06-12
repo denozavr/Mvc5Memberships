@@ -112,8 +112,13 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             ItemType itemType = await db.ItemTypes.FindAsync(id);
-            db.ItemTypes.Remove(itemType);
-            await db.SaveChangesAsync();
+            var isUnused = await db.Items.CountAsync(i => i.ItemTypeId == id) == 0;
+
+            if (isUnused)
+            {
+                db.ItemTypes.Remove(itemType);
+                await db.SaveChangesAsync();
+            }
             return RedirectToAction("Index");
         }
 
