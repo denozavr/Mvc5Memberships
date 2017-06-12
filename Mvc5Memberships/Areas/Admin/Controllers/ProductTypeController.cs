@@ -112,8 +112,15 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             ProductType productType = await db.ProductTypes.FindAsync(id);
-            db.ProductTypes.Remove(productType);
-            await db.SaveChangesAsync();
+            var isUnused = await db.Products.CountAsync(p => p.ProductTypeId == id) == 0;
+
+            if (isUnused)
+            {
+                db.ProductTypes.Remove(productType);
+                await db.SaveChangesAsync();
+            }
+
+            
             return RedirectToAction("Index");
         }
 
