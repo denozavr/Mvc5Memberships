@@ -16,6 +16,7 @@ using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
