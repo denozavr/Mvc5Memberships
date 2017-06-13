@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Mvc5Memberships.Models
@@ -64,6 +65,10 @@ namespace Mvc5Memberships.Models
 
     public class RegisterViewModel
     {
+        [Required]
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
