@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Mvc5Memberships.Extenstion;
 using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships.Controllers
@@ -50,6 +52,15 @@ namespace Mvc5Memberships.Controllers
             {
                 _userManager = value;
             }
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Index()
+        {
+            var users = new List<UserViewModel>();
+            await users.GetUsers();
+
+            return View(users);
         }
 
         //
