@@ -221,6 +221,7 @@
     <Compile Include="Entities\UserSubscription.cs" />
     <Compile Include="Extenstion\ConversionExtensions.cs" />
     <Compile Include="Extenstion\ICollectionExtensions.cs" />
+    <Compile Include="Extenstion\IdentityExtensions.cs" />
     <Compile Include="Extenstion\ReflectionExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
