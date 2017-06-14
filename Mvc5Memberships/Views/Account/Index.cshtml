@@ -10,7 +10,7 @@
 @if (Request.IsAuthenticated && User.IsInRole("Admin"))
 {
     <p>
-        @Html.ActionLink("Create New", "Create")
+        @Html.Partial("_CreateNewButtonPartial")
     </p>
     <table class="table">
         <tr>
