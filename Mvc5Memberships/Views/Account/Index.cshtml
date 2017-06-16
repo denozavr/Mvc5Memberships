@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Mvc5Memberships.Models.UserViewModel>
+﻿@using Mvc5Memberships.Areas.Admin.Models
+@model IEnumerable<Mvc5Memberships.Models.UserViewModel>
 
 @{
     ViewBag.Title = "Users & Subscriptions";
@@ -32,11 +33,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.FirstName)
                 </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
-                    @Html.ActionLink("Details", "Details", new {id = item.Id}) |
-                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
-                </td>
+                @Html.Partial("_TableButtonsPartial", new SmallButtonModel{UserId = item.Id})
             </tr>
         }
 
