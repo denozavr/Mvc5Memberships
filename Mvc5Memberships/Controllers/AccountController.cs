@@ -104,7 +104,68 @@ namespace Mvc5Memberships.Controllers
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
+            }
+            return View(userVm);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Edit(string userId)
+        {
+            if (String.IsNullOrEmpty(userId))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user == null)
+                return HttpNotFound();
+
+            var model = new UserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                Password = user.PasswordHash
+            };
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Edit(UserViewModel userVm)
+        {
+            try
+            {
+                if (userVm == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (ModelState.IsValid)
+                {
+                    var user = await UserManager.FindByIdAsync(userVm.Id);
+
+                    if (user != null)
+                    {
+                        user.FirstName = userVm.FirstName;
+                        user.Email = userVm.Email;
+                        user.UserName = userVm.Email;
+                        //Hash pass if new was entered
+                        if (user.PasswordHash != userVm.Password)
+                            user.PasswordHash = UserManager.PasswordHasher.HashPassword(userVm.Password);
+                    }
+
+
+                    var result = await UserManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    AddErrors(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
             return View(userVm);
         }
