@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
@@ -61,6 +62,51 @@ namespace Mvc5Memberships.Controllers
             await users.GetUsers();
 
             return View(users);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Create(UserViewModel userVm)
+        {
+            try
+            {
+                if (userVm == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (ModelState.IsValid)
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = userVm.Email,
+                        FirstName = userVm.FirstName,
+                        Email = userVm.Email,
+                        IsActive = true,
+                        Registered = DateTime.Now,
+                        EmailConfirmed = true //if false you can't use Forgot Password
+                    };
+
+                    var result = await UserManager.CreateAsync(user);
+                    if (result.Succeeded)
+                    {
+                       return RedirectToAction("Index");
+                    }
+
+                    AddErrors(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            return View(userVm);
         }
 
         //
