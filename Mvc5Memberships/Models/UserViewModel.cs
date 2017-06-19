@@ -18,12 +18,12 @@ namespace Mvc5Memberships.Models
 
 
         [Display(Name = "First Name")]
-        [StringLength(30, ErrorMessage = "The {0} should be at least {1} chars long", MinimumLength = 2)]
+        [StringLength(30, ErrorMessage = "The {0} should be at least {2} chars long", MinimumLength = 2)]
         public string FirstName { get; set; }
 
 
         [Required]
-        [StringLength(70, ErrorMessage = "The {0} should be at least {1} chars long and have at least 1 digit.s", MinimumLength = 6)]
+        [StringLength(70, ErrorMessage = "The {0} should be at least {2} chars long and have at least 1 digit.s", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
