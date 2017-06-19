@@ -170,6 +170,64 @@ namespace Mvc5Memberships.Controllers
             return View(userVm);
         }
 
+
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(string userId)
+        {
+            if (String.IsNullOrEmpty(userId))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var user = await UserManager.FindByIdAsync(userId);
+            if (user == null)
+                return HttpNotFound();
+
+            var model = new UserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                Password = "......"//required field so just dummy data MININUM 6 CHARS
+            };
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(UserViewModel userVm)
+        {
+            try
+            {
+                if (userVm == null)  
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (ModelState.IsValid)
+                {
+                    var user = await UserManager.FindByIdAsync(userVm.Id);
+                    var result = await UserManager.DeleteAsync(user);
+                    if (result.Succeeded)
+                    {
+                        var db = new ApplicationDbContext();
+                        var subs = db.UserSubscriptions.Where(u => u.UserId == user.Id);
+                        db.UserSubscriptions.RemoveRange(subs);//delete connected userSubs
+
+                        await db.SaveChangesAsync();
+                        return RedirectToAction("Index");
+                    }
+                    AddErrors(result);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return View(userVm);
+        }
+
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
