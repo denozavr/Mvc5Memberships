@@ -11,6 +11,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Mvc5Memberships.Entities;
 using Mvc5Memberships.Extenstion;
 using Mvc5Memberships.Models;
 
@@ -264,6 +265,40 @@ namespace Mvc5Memberships.Controllers
             model.UserId = userId;
 
             return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Subscriptions(UserSubscriptionViewModel userVm)
+        {
+            try
+            {
+                if (userVm == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (ModelState.IsValid)
+                {
+                    var db = new ApplicationDbContext();
+
+                    db.UserSubscriptions.Add(new UserSubscription()
+                    {
+                        UserId = userVm.UserId,
+                        StartDate = DateTime.Now,
+                        EndDate = DateTime.Now.AddDays(30),
+                        SubscriptionId = userVm.SubscriptionId
+                    });
+
+                    await db.SaveChangesAsync();
+                }
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+
+            return RedirectToAction("Subscriptions", new {userId = userVm.UserId});
         }
 
         //
