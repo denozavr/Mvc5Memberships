@@ -301,6 +301,31 @@ namespace Mvc5Memberships.Controllers
             return RedirectToAction("Subscriptions", new {userId = userVm.UserId});
         }
 
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> RemoveUserSubscription(int subscriptionId, string userId)
+        {
+            if (String.IsNullOrEmpty(userId) || subscriptionId<=0)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                   var db = new ApplicationDbContext();
+                    var subs = db.UserSubscriptions.Where(u 
+                               => u.UserId == userId && u.SubscriptionId == subscriptionId);
+
+                    db.UserSubscriptions.RemoveRange(subs);
+                    await db.SaveChangesAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+            return RedirectToAction("Subscriptions", new { userId = userId});
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
