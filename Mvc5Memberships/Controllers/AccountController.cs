@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -227,6 +228,43 @@ namespace Mvc5Memberships.Controllers
             return View(userVm);
         }
 
+
+
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Subscriptions(string userId)
+        {
+            if (String.IsNullOrEmpty(userId))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var model = new UserSubscriptionViewModel();
+            var db = new ApplicationDbContext();
+
+            model.UserSubscriptions = await db.UserSubscriptions.Join(db.Subscriptions,
+                us => us.SubscriptionId,
+                sub => sub.Id, (us, sub) => new UserSubscriptionModel()
+                {
+                    Id = us.SubscriptionId,
+                    StartDate = us.StartDate,
+                    EndDate = us.EndDate,
+                    Description = sub.Description,
+                    RegistrationCode = sub.RegistrationCode,
+                    Title = sub.Title
+                }).ToListAsync();
+
+            //model.UserSubscriptions = await (
+            //    from us in db.UserSubscriptions
+            //    join sub in db.Subscriptions on us.SubscriptionId equals sub.Id
+            //    where us.UserId.Equals(userId)
+            //    select new UserSubscriptionModel
+            //    {  }).ToListAsync();
+
+            var ids = model.UserSubscriptions.Select(us => us.Id);
+            model.Subscriptions = await db.Subscriptions.Where(s => !ids.Contains(s.Id)).ToListAsync();
+            model.DisableDropDown = !model.Subscriptions.Any();//not 0 subs
+            model.UserId = userId;
+
+            return View(model);
+        }
 
         //
         // GET: /Account/Login
