@@ -1,1 +1,4 @@
-﻿
+﻿.headline {
+    margin: 0 0 15px; /*only bottom margin*/
+    border-bottom: 2px solid #72c02c;
+}
