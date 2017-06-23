@@ -31,7 +31,8 @@ namespace Mvc5Memberships
                       "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/membership").Include(
-                "~/Content/navbar.css"));
+                "~/Content/navbar.css",
+                "~/Content/thumbnails.css"));
         }
     }
 }
