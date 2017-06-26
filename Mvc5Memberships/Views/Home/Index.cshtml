@@ -1,13 +1,16 @@
-﻿@{
+﻿@using Mvc5Memberships.Models
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="row">
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="col-xs-12">
+        @*<div class="col-xs-12">
             <h2>I'm logged in</h2>
-        </div>
+        </div>*@
+
+        @Html.Partial("_ThumbnailAreaPartial", new ThumbnailAreaModel())
     }
     else
     {
