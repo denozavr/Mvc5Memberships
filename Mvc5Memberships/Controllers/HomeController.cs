@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Mvc5Memberships.Extenstion;
 
 namespace Mvc5Memberships.Controllers
 {
@@ -10,6 +12,7 @@ namespace Mvc5Memberships.Controllers
     {
         public ActionResult Index()
         {
+            var userId = Request.IsAuthenticated ? HttpContext.GetUserIdCtx() : null;
             return View();
         }
 

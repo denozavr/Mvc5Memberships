@@ -12,7 +12,7 @@ namespace Mvc5Memberships.Extenstion
         private const string Nameidentifier =
             "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier";
 
-        public static string GetUserId(this HttpContextBase ctx)
+        public static string GetUserIdCtx(this HttpContextBase ctx)
         {
             var uid = string.Empty;
             try
