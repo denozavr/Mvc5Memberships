@@ -2,3 +2,42 @@
     margin: 0 0 15px; /*only bottom margin*/
     border-bottom: 2px solid #72c02c;
 }
+
+.thumbnail {
+    padding: 5px;
+}
+
+    .thumbnail .tag {
+        right: -10px;
+        color: #fff;
+        padding: 1px 6px;
+        position: absolute;
+        display: inline-block;
+    }
+
+    .thumbnail .thumbnail-img-container {
+        overflow: hidden;
+    }
+
+    .thumbnail .thumbnail-container {
+        position: relative;
+    }
+
+    .thumbnail .text-tag {
+        background-color: #72c02c;
+        bottom: 10px;
+    }
+
+    .thumbnail .content-tag {
+        background-color: #f79a47;
+        top: 10px;
+    }
+
+    .thumbnail a, a:focus, a:hover, a:active {
+        outline: 0px none !important;
+        text-decoration: none;
+    }
+
+    .thumbnail > a:focus, a:hover, a:active {
+        color: #72c02c
+    }
