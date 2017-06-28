@@ -41,3 +41,9 @@
     .thumbnail > a:focus, a:hover, a:active {
         color: #72c02c
     }
+
+@media screen and (min-width: 300px) {
+    .thumbnail {
+        max-width: 260px;
+    }
+}
