@@ -17,7 +17,19 @@ namespace Mvc5Memberships.Controllers
             var userId = Request.IsAuthenticated ? HttpContext.GetUserIdCtx() : null;
             var thumbs = await new List<ThumbnailModel>().GetProductThumbnailsAsync(userId);
 
-            return View();
+            var rows = thumbs.Count() / 4;//4 thumbs in a row
+            var model = new List<ThumbnailAreaModel>();
+
+            for (int i = 0; i <= rows; i++)
+            {
+                model.Add(new ThumbnailAreaModel
+                {
+                    Title = i==0 ? "My Content" : "",
+                    Thumbnails = thumbs.Skip(i*4).Take(4)
+                });
+            }
+
+            return View(model);
         }
 
         public ActionResult About()

@@ -1,4 +1,6 @@
 ﻿@using Mvc5Memberships.Models
+@model IEnumerable<ThumbnailAreaModel>
+
 @{
     ViewBag.Title = "Home Page";
 }
@@ -10,7 +12,10 @@
             <h2>I'm logged in</h2>
         </div>*@
 
-        @Html.Partial("_ThumbnailAreaPartial", new ThumbnailAreaModel())
+        foreach (var row in Model)
+        {
+            @Html.Partial("_ThumbnailAreaPartial", row )
+        }
     }
     else
     {
