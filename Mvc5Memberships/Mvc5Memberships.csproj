@@ -270,7 +270,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\aspcoreArticle.png" />
     <Content Include="Content\Images\aspCoreShort.png" />
-    <Content Include="Content\Images\yellowc#.png" />
+    <Content Include="Content\Images\yellowc.png" />
     <Content Include="Content\Logo\logo_big.png" />
     <Content Include="Content\Logo\logo_small.png" />
     <Content Include="Content\navbar.css" />
