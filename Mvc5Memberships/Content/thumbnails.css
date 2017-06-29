@@ -42,6 +42,20 @@
         color: #72c02c
     }
 
+    .thumbnail .hover-effect {
+        transition: all 0.4s ease-in-out 0s;
+    }
+
+    .thumbnail a.text-tag:hover {
+        box-shadow: 0px 0px 0px 2px #5FB611;
+    }
+
+    .thumbnail:hover a.text-tag {
+        right: 15px;
+    }
+
+
+
 @media screen and (min-width: 300px) {
     .thumbnail {
         max-width: 260px;
