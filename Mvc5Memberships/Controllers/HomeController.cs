@@ -15,17 +15,18 @@ namespace Mvc5Memberships.Controllers
         public async Task<ActionResult> Index()
         {
             var userId = Request.IsAuthenticated ? HttpContext.GetUserIdCtx() : null;
-            var thumbs = await new List<ThumbnailModel>().GetProductThumbnailsAsync(userId);
+            var thumbs = (await new List<ThumbnailModel>().GetProductThumbnailsAsync(userId)).ToArray();
 
-            var rows = thumbs.Count() / 4;//4 thumbs in a row
+           
+            //var rows = thumbnailModels.Count() / 4;//4 thumbs in a row
             var model = new List<ThumbnailAreaModel>();
 
-            for (int i = 0; i <= rows; i++)
+            for (int i = 0; i < thumbs.Count(); i++)
             {
                 model.Add(new ThumbnailAreaModel
                 {
                     Title = i==0 ? "My Content" : "",
-                    Thumbnails = thumbs.Skip(i*4).Take(4)
+                    Thumbnails = thumbs[i]
                 });
             }
 
