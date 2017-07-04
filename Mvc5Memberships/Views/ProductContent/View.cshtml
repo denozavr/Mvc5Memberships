@@ -1,0 +1,12 @@
+﻿@model Mvc5Memberships.Models.ProductSectionModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="headline">
+    <h2>@Model.Title</h2>
+    <a class="btn btn-primary pull-right" href="@Url.Action("Index","Home")">
+        <span class="glyphicon glyphicon-arrow-left"></span> Back
+    </a>
+</div>
