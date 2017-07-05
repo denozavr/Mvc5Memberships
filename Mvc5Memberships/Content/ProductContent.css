@@ -1,1 +1,15 @@
-﻿
+﻿.pc-headline {
+    border-bottom: none;
+    margin-bottom: 10px;
+}
+
+.pc-headline h2, .pc-headline h3, .pc-headline h4 {
+    margin: 0 0 -3px;
+    border-bottom: 3px solid #72C02C;
+    padding-bottom: 5px;
+    display: inline-block;
+}
+
+.pc-headline h2 {
+    font-size: 22px;
+}
