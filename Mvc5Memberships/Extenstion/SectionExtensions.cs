@@ -31,17 +31,65 @@ namespace Mvc5Memberships.Extenstion
                 }).ToListAsync();
 
 
+            foreach (var section in sections)
+                section.Items = await GetProductItemRowsAsync(productId, section.Id, userId);
+
+            // var result = sections.Distinct(new ProductSectionEqualityComparer()).ToList();
             var result = sections.Distinct(new ProductSectionEqualityComparer()).ToList();
 
+            var union = result.Where(r => !r.Title.ToLower().Contains("download"))
+                .Union(result.Where(r => r.Title.ToLower().Contains("download")));
+
+            //var model = new ProductSectionModel
+            //{
+            //    Sections = result,
+            //    Title = await (db.Products.Where(p => p.Id == productId)
+            //        .Select(p => p.Title)).FirstOrDefaultAsync()
+            //};
 
             var model = new ProductSectionModel
             {
-                Sections = result,
-                Title = await (db.Products.Where(p=>p.Id == productId)
-                        .Select(p=>p.Title)).FirstOrDefaultAsync()
+                Sections = union.ToList(),
+                Title = await (from p in db.Products
+                    where p.Id.Equals(productId)
+                    select p.Title).FirstOrDefaultAsync()
             };
 
             return model;
+        }
+
+        public static async Task<IEnumerable<ProductItemRow>> GetProductItemRowsAsync(
+            int productId, int sectionId, string userId, ApplicationDbContext db = null)
+        {
+            if (db == null) db = ApplicationDbContext.Create();
+
+            var today = DateTime.Now.Date;
+
+            var items = await (from i in db.Items
+                join it in db.ItemTypes on i.ItemTypeId equals it.Id
+                join pi in db.ProductItems on i.Id equals pi.ItemId
+                join sp in db.SubscriptionProducts on pi.ProductId equals sp.ProductId
+                join us in db.UserSubscriptions on sp.SubscriptionId equals us.SubscriptionId
+                where i.SectionId == sectionId &&
+                      //i.ItemTypeId==itemTypeId &&
+                      pi.ProductId==productId && us.UserId==userId
+                orderby i.PartId
+                select new ProductItemRow
+                {
+                    ItemId = i.Id,
+                    Description = i.Description,
+                    Title = i.Title,
+                    Link = it.Title=="Download" ? i.Url : "/ProductContent/Content/" + pi.ProductId + "/" + i.Id,
+                    ImageUrl = i.ImageUrl,
+                    ReleaseDate = DbFunctions.CreateDateTime(us.StartDate.Value.Year,
+                        us.StartDate.Value.Month, us.StartDate.Value.Day + i.WaitDays, 0, 0, 0),
+                    IsAvailable = DbFunctions.CreateDateTime(today.Year,
+                                      today.Month, today.Day, 0, 0, 0) >= DbFunctions.CreateDateTime(us.StartDate.Value.Year,
+                                      us.StartDate.Value.Month, us.StartDate.Value.Day + i.WaitDays, 0, 0, 0),
+                    IsDownload = it.Title == "Download"
+                }).ToListAsync();
+
+            return items;
         }
     }
 }
