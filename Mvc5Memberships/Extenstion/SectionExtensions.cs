@@ -91,5 +91,24 @@ namespace Mvc5Memberships.Extenstion
 
             return items;
         }
+
+
+        public static async Task<ContentViewModel> GetContentAsync(
+            int procuctId, int itemId)
+        {
+            var db = ApplicationDbContext.Create();
+            return await (
+                from i in db.Items
+                join it in db.ItemTypes on i.ItemTypeId equals it.Id
+                where i.Id == itemId
+                select new ContentViewModel
+                {
+                    ProductId = procuctId,
+                    Html = i.Html,
+                    VideoUrl = i.Url,
+                    Title = i.Title,
+                    Description = i.Description
+                }).FirstOrDefaultAsync();
+        }
     }
 }
