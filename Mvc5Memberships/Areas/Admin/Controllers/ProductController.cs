@@ -30,6 +30,13 @@ namespace Mvc5Memberships.Areas.Admin.Controllers
             return View(model);
         }
 
+
+        public async Task<ActionResult> Content(int prodId, int itemId)
+        {
+            var model = await SectionExtensions.GetContentAsync(prodId, itemId);
+            return View("Content", model);
+        }
+
         // GET: Admin/Product/Details/5
         public async Task<ActionResult> Details(int? id)
         {
