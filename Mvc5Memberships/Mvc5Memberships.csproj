@@ -281,6 +281,9 @@
     <Content Include="Content\Images\yellowc.png" />
     <Content Include="Content\Logo\logo_big.png" />
     <Content Include="Content\Logo\logo_small.png" />
+    <Content Include="Content\mediaelementplayer.css" />
+    <Content Include="Content\mejs-controls.png" />
+    <Content Include="Content\mejs-controls.svg" />
     <Content Include="Content\navbar.css" />
     <Content Include="Content\productContent.css" />
     <Content Include="Content\thumbnails.css" />
@@ -303,6 +306,8 @@
     <Content Include="Areas\Admin\Views\Section\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Section\Index.cshtml" />
     <Content Include="Scripts\carret.js" />
+    <Content Include="Scripts\mediaelement-and-player.js" />
+    <Content Include="Scripts\mediaelement-and-player.min.js" />
     <Content Include="Views\Shared\_BackToListButtonPartial.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_EditButtonPartial.cshtml" />
     <Content Include="Views\Shared\_CreateNewButtonPartial.cshtml" />
