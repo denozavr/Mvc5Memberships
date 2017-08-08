@@ -4,5 +4,17 @@
     ViewBag.Title = "Content";
 }
 
-<h2>Content</h2>
+<div class="pc-headline">
+    <h2>@Model.Title</h2>
+    <a class="btn btn-primary pull-right" href="/ProductContent/Index/@Model.ProductId">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+        Back
+    </a>
+</div>
+<div>@Model.Description</div>
+
+@if (Model.Html != null)
+{
+    <div class="article">@Html.Raw(Model.Html)</div>
+}
 
