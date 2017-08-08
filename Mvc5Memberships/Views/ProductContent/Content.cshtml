@@ -1,8 +1,12 @@
-﻿@model Mvc5Memberships.Models.ContentViewModel
+﻿@using Microsoft.Owin.Security.Cookies
+@model Mvc5Memberships.Models.ContentViewModel
 
 @{
     ViewBag.Title = "Content";
 }
+
+<script src="~/Scripts/mediaelement-and-player.js"></script>
+<link href="~/Content/mediaelementplayer.css" rel="stylesheet" />
 
 <div class="pc-headline">
     <h2>@Model.Title</h2>
@@ -18,3 +22,16 @@
     <div class="article">@Html.Raw(Model.Html)</div>
 }
 
+@if (Model.VideoUrl != null)
+{
+    <video width="640" height="360" id="player1" preload="none">
+        <source type="video/youtube" src="@Model.VideoUrl" />
+    </video>
+}
+
+@section scripts
+{
+    <script>
+        var player = new MediaElementPlayer('#player1');
+     </script>
+}
