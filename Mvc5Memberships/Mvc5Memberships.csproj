@@ -229,6 +229,7 @@
     <Compile Include="Extenstion\IdentityExtensions.cs" />
     <Compile Include="Extenstion\ReflectionExtensions.cs" />
     <Compile Include="Extenstion\SectionExtensions.cs" />
+    <Compile Include="Extenstion\SubscriptionExtensions.cs" />
     <Compile Include="Extenstion\ThumbnailExtensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
