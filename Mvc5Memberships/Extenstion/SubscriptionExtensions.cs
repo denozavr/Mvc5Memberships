@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Mvc5Memberships.Entities;
+using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships.Extenstion
 {
@@ -55,6 +56,24 @@ namespace Mvc5Memberships.Extenstion
             {
                 Debug.WriteLine("Input parameters no valid");
             }
+        }
+
+        public static async Task<bool> RegisterUserSubscriptionCode(
+            string userId, string code)
+        {
+            try
+            {
+                var db = ApplicationDbContext.Create();
+                var id = await db.Subscriptions.GetSubscriptionIdByRegistrationCode(code);
+                if (id <= 0) return false;
+                await db.UserSubscriptions.Register(id, userId);
+
+                if (db.ChangeTracker.HasChanges())
+                    await db.SaveChangesAsync();
+
+                return true;
+            }
+            catch { return false; }
         }
 
 
