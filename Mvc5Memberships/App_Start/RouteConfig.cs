@@ -14,7 +14,7 @@ namespace Mvc5Memberships
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "DefaultWithItem",
                 url: "{controller}/{action}/{productId}/{itemId}",
                 defaults: new { controller = "ProductContent", action = "Index"}
             );
