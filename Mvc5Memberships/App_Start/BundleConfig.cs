@@ -37,7 +37,8 @@ namespace Mvc5Memberships
                 "~/Content/thumbnails.css",
                 "~/Content/productContent.css",
                 "~/Content/carret.css",
-                "~/Content/RegisterCode.css"));
+                "~/Content/RegisterCode.css",
+                "~/Content/RegisterUser.css"));
         }
     }
 }

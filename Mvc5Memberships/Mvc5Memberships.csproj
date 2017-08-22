@@ -291,6 +291,7 @@
     <Content Include="Content\navbar.css" />
     <Content Include="Content\productContent.css" />
     <Content Include="Content\RegisterCode.css" />
+    <Content Include="Content\RegisterUser.css" />
     <Content Include="Content\thumbnails.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
