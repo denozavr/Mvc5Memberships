@@ -1,1 +1,20 @@
-﻿
+﻿.validation-summary-errors ul {
+    padding-left: 15px;
+    color: red;
+}
+
+.register-user-panel input[type=text].form-control,
+.register-user-panel input[type=password].form-control {
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
+.register-user-panel .glyphicon{
+    background-color: white;
+    border: none;
+    padding-left: 0;
+}
+
+.register-user-panel button {
+    margin-top: 5px;
+}
