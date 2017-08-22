@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-lg-3 col-md-4 col-xs-5">
-            
+            @Html.Partial("_RegisterUserPartial", new RegisterUserModel(){Name = "", Email = "", Password = ""})
         </div>
     }
 </div>
