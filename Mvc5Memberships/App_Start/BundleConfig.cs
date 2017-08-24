@@ -10,8 +10,7 @@ namespace Mvc5Memberships
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/carret.js",
-                        "~/Scripts/RegisterCode.js"));
+                        "~/Scripts/carret.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -27,6 +26,13 @@ namespace Mvc5Memberships
 
             bundles.Add(new ScriptBundle("~/bundles/admin").Include(
                 "~/Scripts/AdminMenu.js"));
+
+
+            bundles.Add(new ScriptBundle("~/bundles/membership").Include(
+                "~/Scripts/RegisterCode.js",
+                "~/Scripts/RegisterUser.js"));
+
+            
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
