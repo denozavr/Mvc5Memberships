@@ -30,7 +30,8 @@ namespace Mvc5Memberships
 
             bundles.Add(new ScriptBundle("~/bundles/membership").Include(
                 "~/Scripts/RegisterCode.js",
-                "~/Scripts/RegisterUser.js"));
+                "~/Scripts/RegisterUser.js",
+                "~/Scripts/login.js"));
 
             
 
@@ -44,7 +45,8 @@ namespace Mvc5Memberships
                 "~/Content/productContent.css",
                 "~/Content/carret.css",
                 "~/Content/RegisterCode.css",
-                "~/Content/RegisterUser.css"));
+                "~/Content/RegisterUser.css",
+                "~/Content/login.css"));
         }
     }
 }
