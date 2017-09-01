@@ -14,3 +14,34 @@
     padding-bottom: 3px;
     margin-right: 10px;
 }
+
+[data-login-user-area] {
+    border-color: #4765A0;
+}
+
+/*[data-login-user-area], [data-login-user-area] * {
+    -ms-border-radius: 0;
+    border-radius: 0;
+}*/
+
+[data-login-user-area] .panel {
+    box-shadow: none;
+    margin-bottom: 3px;
+    min-width: 300px;
+}
+
+[data-login-user-area] .panel-heading {
+    margin-bottom: 7px;
+    background-color: #4765A0;
+    color: white;
+}
+
+[data-login-user-area] .glyphicon-remove {
+    cursor: pointer;
+    color: white;
+}
+
+[data-login-user-area] .panel-body {
+    padding-bottom: 7px;
+    padding-top: 7px;
+}
