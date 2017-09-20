@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Mvc5Memberships.Extenstion;
 using Mvc5Memberships.Models;
 
 namespace Mvc5Memberships
@@ -19,6 +20,7 @@ namespace Mvc5Memberships
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            message.Send();
             return Task.FromResult(0);
         }
     }
