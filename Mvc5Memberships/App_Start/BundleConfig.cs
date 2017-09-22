@@ -46,7 +46,9 @@ namespace Mvc5Memberships
                 "~/Content/carret.css",
                 "~/Content/RegisterCode.css",
                 "~/Content/RegisterUser.css",
+                "~/Content/forgot-password.css",
                 "~/Content/login.css"));
+            
         }
     }
 }
