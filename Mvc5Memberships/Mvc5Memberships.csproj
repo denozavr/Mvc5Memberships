@@ -316,6 +316,7 @@
     <Content Include="Areas\Admin\Views\Section\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Section\Index.cshtml" />
     <Content Include="Scripts\carret.js" />
+    <Content Include="Scripts\forgot-password.js" />
     <Content Include="Scripts\login.js" />
     <Content Include="Scripts\mediaelement-and-player.js" />
     <Content Include="Scripts\mediaelement-and-player.min.js" />

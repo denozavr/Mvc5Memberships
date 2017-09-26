@@ -31,6 +31,7 @@ namespace Mvc5Memberships
             bundles.Add(new ScriptBundle("~/bundles/membership").Include(
                 "~/Scripts/RegisterCode.js",
                 "~/Scripts/RegisterUser.js",
+                "~/Scripts/forgot-password.js",
                 "~/Scripts/login.js"));
 
             
